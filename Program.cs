@@ -2,18 +2,26 @@
 
 namespace hello_console
 {
+     
     class Program
     {
-        public struct DateRange
+         public struct DateRange
         {
-            DateTime Start { get; set; }
-            DateTime End { get; set; }
+            public DateTime Start { get; set; }
+            public DateTime End { get; set; }
         
         }
         static void Main(string[] args)
         {
+            DateTime start = new DateTime(2020, 12, 29);
+            DateTime end = new DateTime(2021, 1, 3);
             DateTime [] holidays  = {new DateTime(2020, 12, 31), new DateTime(2021, 1, 1)};
-            int count = CountWorkingDays(new DateTime(2020, 12, 29), new DateTime(2021, 1, 2), holidays);
+            int count = CountWorkingDays(start, end, holidays);
+            Console.WriteLine(count);
+            DateRange range = new DateRange();
+            range.Start = start;            
+            range.End = end;
+            count = CountWorkingDays(range, holidays);
             Console.WriteLine(count);
         }
 
@@ -23,7 +31,7 @@ namespace hello_console
             while (start <= end){
                DateTime d = start.AddDays(1);
                //Console.WriteLine(start.AddDays(1));
-                if(!Array.Exists(holidays, element => element == d)){
+                if(!Array.Exists(holidays, element => element == d) && d.DayOfWeek != DayOfWeek.Saturday && d.DayOfWeek != DayOfWeek.Sunday){
                     countWorkingDays++;
                 }
                 start = d;
@@ -33,7 +41,7 @@ namespace hello_console
 
          public static int CountWorkingDays (DateRange range, DateTime[] holidays)
         {
-            return 0;
+            return CountWorkingDays(range.Start, range.End, holidays);
         }
     }
 }
