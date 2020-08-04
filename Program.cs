@@ -28,14 +28,12 @@ namespace hello_console
         public static int CountWorkingDays (DateTime start, DateTime end, DateTime[] holidays)
         {
             int countWorkingDays = 0;
-            while (start <= end){
-               DateTime d = start.AddDays(1);
-               //Console.WriteLine(start.AddDays(1));
+            for(DateTime d = start; d <= end ; d = d.AddDays(1)){
                 if(!Array.Exists(holidays, element => element == d) && d.DayOfWeek != DayOfWeek.Saturday && d.DayOfWeek != DayOfWeek.Sunday){
                     countWorkingDays++;
                 }
-                start = d;
             }
+            
             return countWorkingDays;
         }
 
